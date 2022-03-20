@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="good-shulker">
+    <output-path>$USER_HOME$/OneDrive/Desktop/plugin-spree/plugins/</output-path>
+    <root id="archive" name="good-shulker.jar">
+      <element id="module-output" name="good-shulker" />
+    </root>
+  </artifact>
+</component>

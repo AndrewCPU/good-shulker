@@ -1,0 +1,10 @@
+name: GoodShulk
+main: net.andrewcpu.goodshulk.ShulkDrive
+version: 1.0
+api-version: 1.18
+author: Andrewcpu
+website: https://github.com/
+permissions:
+  goodshulk.use:
+    description: Allows you to use GoodShulks from your inventory
+    default: not op
