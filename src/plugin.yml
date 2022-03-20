@@ -4,7 +4,16 @@ version: 1.0
 api-version: 1.18
 author: Andrewcpu
 website: https://github.com/AndrewCPU/good-shulker
+commands:
+  goodshulk:
+    description: Configuration command for GoodShulk
+    permission: goodshulk.config
+    permission-message: You do not have permission to modify GoodShulk.
+    usage: /<command> [help]
 permissions:
   goodshulk.use:
     description: Allows you to use GoodShulks from your inventory
     default: not op
+  goodshulk.config:
+    description: Allows access to configuration for GoodShulk
+    default: op

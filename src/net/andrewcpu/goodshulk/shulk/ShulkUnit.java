@@ -1,9 +1,10 @@
-package net.andrewcpu.goodshulk;
+package net.andrewcpu.goodshulk.shulk;
 
 import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BlockStateMeta;
 
 public class ShulkUnit {
     private Player player;
@@ -49,4 +50,12 @@ public class ShulkUnit {
     public void setShulkerBox(ShulkerBox shulkerBox) {
         this.shulkerBox = shulkerBox;
     }
+
+    public void updateItemContents(){
+        BlockStateMeta meta = (BlockStateMeta) getItemStack().getItemMeta();
+        getShulkerBox().getInventory().setContents(getFakeInventory().getContents());
+        meta.setBlockState(getShulkerBox());
+        getItemStack().setItemMeta(meta);
+    }
+
 }
