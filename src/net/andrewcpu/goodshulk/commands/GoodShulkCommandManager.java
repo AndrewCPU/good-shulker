@@ -13,11 +13,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static net.andrewcpu.goodshulk.utils.StringUtils.parseCommand;
+
 public class GoodShulkCommandManager implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
         if(command.getName().equals("goodshulk")){
-            if(args.length == 0){
+            if(args.length <= 1){
                 sendHelp(commandSender);
                 return true;
             }
@@ -32,74 +34,11 @@ public class GoodShulkCommandManager implements CommandExecutor {
             }
             else{
                 sendHelp(commandSender);
-                return true;
             }
             return true;
         }
         return false;
     }
-
-    private int countBefore(String s, String target){
-        int targetCount = 0;
-        for(int i =0; i<s.length(); i++){
-            if(s.charAt(i) == target.charAt(0)){
-                targetCount++;
-            }
-        }
-        return targetCount;
-    }
-
-    private String parseCommand(String command, ChatColor defaultColor){
-        String output = "";
-        String[] chars = command.split("");
-        for(String s : chars){
-            if(s.equals("[")){
-                output += defaultColor + s + ChatColor.YELLOW;
-            }
-            else if(s.equals("]")){
-                output += defaultColor + s;
-            }
-            else if(s.equals("|")){
-                output += ChatColor.GRAY + s + ChatColor.YELLOW;
-            }
-            else if(s.equals("\"")){
-                if(countBefore(output, "\"") % 2 == 0){
-                    output += defaultColor + s + ChatColor.LIGHT_PURPLE;
-                }
-                else{
-                    output += defaultColor + s;
-                }
-            }
-            else if(s.equals(" ")){
-                int countBefore = countBefore(output, " ");
-                if(countBefore == 0){
-                    output += s + ChatColor.GREEN;
-                }
-                else if(countBefore == 1){
-                    output += s + ChatColor.AQUA;
-                }
-                else{
-                    if(countBefore(output, "\"") % 2 == 0 ){
-                        if(countBefore(output, "[")  == countBefore(output, "]") ){
-                            output += s + defaultColor;
-                        }
-                        else{
-                            output += s + ChatColor.YELLOW;
-                        }
-                    }
-                    else{
-                        output += s + ChatColor.LIGHT_PURPLE;
-                    }
-                }
-
-            }
-            else{
-                output += s;
-            }
-        }
-        return output;
-    }
-
 
     private void sendHelp(CommandSender sender){
         HashMap<String, String> commandUsage = new HashMap<>();
@@ -118,8 +57,7 @@ public class GoodShulkCommandManager implements CommandExecutor {
         }
     }
 
-
-    public void doSet(CommandSender sender, String[] args){
+    private void doSet(CommandSender sender, String[] args){
         if(args.length < 3){
             sendHelp(sender);
         }
@@ -155,7 +93,7 @@ public class GoodShulkCommandManager implements CommandExecutor {
         }
     }
 
-    public void doGet(CommandSender sender, String[] args){
+    private void doGet(CommandSender sender, String[] args){
         if(args.length != 2){
             sendHelp(sender);
         }

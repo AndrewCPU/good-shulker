@@ -1,9 +1,7 @@
 package net.andrewcpu.goodshulk;
 
 import net.andrewcpu.goodshulk.commands.GoodShulkCommandManager;
-import net.andrewcpu.goodshulk.shulk.ShulkListener;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
+import net.andrewcpu.goodshulk.shulk.ShulkerListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ShulkDrive extends JavaPlugin {
@@ -12,17 +10,20 @@ public class ShulkDrive extends JavaPlugin {
     public static ShulkDrive getInstance() {
         return _instance;
     }
+    private ShulkerListener shulkerListener;
 
     public void onEnable(){
         _instance = this;
+        shulkerListener = new ShulkerListener();
+
         saveDefaultConfig();
-        getServer().getPluginManager().registerEvents(new ShulkListener(), this);
+        getServer().getPluginManager().registerEvents(shulkerListener, this);
         getCommand("goodshulk").setExecutor(new GoodShulkCommandManager());
     }
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
-        return super.onCommand(sender, command, label, args);
+    public void onDisable(){
+        getLogger().info("Saving all open Shulkers...");
+        shulkerListener.saveAllShulkers();
+        getLogger().info("Done saving all open Shulkers.");
     }
 }
